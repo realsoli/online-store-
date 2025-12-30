@@ -16,12 +16,12 @@ To install and run this project locally, follow these steps:
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/realsoli/online-store.git
+    git clone https://github.com/realsoli/online-store-.git
     ```
 
 2. **Navigate to the project directory:**
     ```bash
-    cd online-store
+    cd online-store-
     ```
 
 3. **Set up your virtual environment:**
