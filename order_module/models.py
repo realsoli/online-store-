@@ -5,24 +5,21 @@ from product_module.models import Product
 
 # Create your models here.
 
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    is_paid = models.BooleanField(verbose_name='نهایی شده/نشده')
-    payment_date = models.DateField(null=True, blank=True, verbose_name='تاریخ پرداخت')
+def calculate_total_price(self):
+    total_amount = 0
 
-    def __str__(self):
-        return str(self.user)
+    for order_detail in self.orderdetail_set.all():
+        count = order_detail.count or 0
 
-    def calculate_total_price(self):
-        total_amount = 0
         if self.is_paid:
-            for order_detail in self.orderdetail_set.all():
-                total_amount += order_detail.final_price * order_detail.count
+            price = order_detail.final_price or 0
         else:
-            for order_detail in self.orderdetail_set.all():
-                total_amount += order_detail.product.price * order_detail.count
+            price = order_detail.product.price if order_detail.product and order_detail.product.price else 0
 
-        return total_amount
+        total_amount += price * count
+
+    return total_amount
+
 
     class Meta:
         verbose_name = 'سبد خرید'
