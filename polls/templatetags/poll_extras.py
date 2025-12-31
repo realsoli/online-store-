@@ -16,8 +16,10 @@ def show_jalali_date(value):
 
 
 @register.filter(name='three_digits_currency')
-def three_digits_currency(value: int):
-    return '{:,}'.format(value) + ' تومان'
+def three_digits_currency(value):
+    if value is None:
+        value = 0
+    return '{:,} تومان'.format(int(value))
 
 
 @register.simple_tag
